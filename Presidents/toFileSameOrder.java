@@ -43,7 +43,7 @@ public class toFileSameOrder {
             w.close();
             sortList(wLast);
             wLast.close();
-            // sortDates(wDate);
+            sortListDate(wDate);
             wDate.close();
 
         } catch (IOException e) {
@@ -61,6 +61,7 @@ public class toFileSameOrder {
         // create a String array of tokens/seperate little elements and split the lines
         // and store them in the array
         String[] chunks = line.split("\t");
+
         // instantiate a president object and pass in the seperated elements in the
         // desired order
         Presidents p = new Presidents(chunks[1], chunks[0], chunks[2], chunks[3]);
@@ -134,17 +135,30 @@ public class toFileSameOrder {
             @Override
             // method to compare presidents
             public int compare(Presidents pres1, Presidents pres2) {
-                // first condition: if the last names are the same, then sort by their first
-                // names. Otherwise, sort by their last names.
-                if (pres1.getFirstDate().compareTo(pres2.getFirstDate()) == 0) {
-                    if (pres1.getFirstName().compareTo(pres2.getFirstName()) == 0) {
-                        return pres1.getLastDate().compareTo(pres2.getLastDate());
-                    }
-                    return pres1.getFirstName().compareTo(pres2.getFirstName());
-                }
-                return pres1.getFirstDate().compareTo(pres2.getFirstDate());
+                String x = pres1.getFirstDate();
+                String y = pres2.getFirstDate();
 
+                try {
+                    Date date1 = new SimpleDateFormat().parse(x);
+                    Date date2 = new SimpleDateFormat().parse(y);
+
+                    // first condition: if the last names are the same, then sort by their first
+                    // names. Otherwise, sort by their last names.
+                    // if date 1 happens before date 2 return date 2 bigger than date a
+                    // if date 1 is after date 2, return a greater than b
+                    // else return zero
+                    if (date1.before(date2)) {
+
+                        return -1;
+                    }
+
+                } catch (ParseException e) {
+
+                    e.printStackTrace();
+                }
+                return 0;
             }
+
         });
         try {
             // loop that goes through each president in the array

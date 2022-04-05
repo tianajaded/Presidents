@@ -21,11 +21,10 @@ public class Presidents {
         this.firstDate = firstDate;
         this.lastDate = lastDate;
         this.lastName = lastName;
-        this.month = month;
+
     }
 
-    // list of methods to return their strings
-
+    // list of methods that return values
     public String getFirstName() {
         return firstName;
     }
@@ -42,8 +41,4 @@ public class Presidents {
         return lastDate;
     }
 
-    public String getMonth() {
-
-        return month;
-    }
 }
